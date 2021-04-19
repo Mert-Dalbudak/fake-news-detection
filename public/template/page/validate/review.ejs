@@ -1,0 +1,110 @@
+<div class="container">
+    <h1>Validate the following phrase</h1>
+
+    <p class="query-claim"><?= data.user_query.text ?></p>
+    <h3>Relevante Quellen zur Überprüfung</h3>
+    <form method="POST">
+        <?- form(form_security) ?>
+        <ul class="source-list">
+            <? 
+            let counter = 0;
+            for(let i = 0; i < data.zeit.length; i++, counter++){ ?>
+                <li class="source-item">
+                    <div class="source-publisher">
+                        <img src="/image/zeit-online.svg" alt="Zeit Online" />
+                    </div>
+                    <h3 class="source-item-title"><?= data.zeit[i].title ?></h3>
+                    <p class="source-item-date"><?= moment(data.zeit[i].release_date).calendar() ?></p>
+                    <div class="review-input">
+                        <input type="checkbox" name="evidence-source[<?= counter ?>]" value="<?= data.zeit[i].href ?>" id="evidence-source[<?= counter ?>]" />
+                        <label for="evidence-source[<?= counter ?>]">Hilfreiche Ressource?</label>
+                    </div>
+                    <a href="<?= data.zeit[i].href ?>" target="_blank">Öffnen</a>
+                </li>
+            <?  } for(let i = 0; i < data.wiki.length; i++, counter++){ ?>
+                <li class="source-item">
+                    <div class="source-publisher">
+                        <img src="/image/wikipedia.svg" alt="Wikipedia"/>
+                    </div>
+                    <h3 class="source-item-title"><?= data.wiki[i].title ?></h3>
+                    <p class="source-item-date"><?= moment(data.wiki[i].timestamp).calendar() ?></p>
+                    <div class="review-input">
+                        <input type="checkbox" name="evidence-source[<?= counter ?>]" value="https://en.wikipedia.org/?curid=<?= data.wiki[i].pageid ?>" id="evidence-source[<?= counter ?>]" />
+                        <label for="evidence-source[<?= counter ?>]">Hilfreiche Ressource?</label>
+                    </div>
+                    <a href="https://en.wikipedia.org/?curid=<?= data.wiki[i].pageid ?>" target="_blank">Öffnen</a>
+                </li>
+            <?  } for(let i = 0; i < data.nyt.length; i++, counter++){ ?>
+                <li class="source-item">
+                    <div class="source-publisher">
+                        <img src="/image/nyt.svg" alt="The New York Times"/>
+                    </div>
+                    <div class="source-item-thumbnail">
+                        <? 
+                        let thumbnail = data.nyt[i].multimedia.find(e => e.subtype == 'blog225');
+                        if(thumbnail != undefined) {
+                            thumbnail = thumbnail.url;
+                        ?>
+                        <img src="https://nyt.com/<?= thumbnail ?>" alt="<?= data.nyt[i].snippet ?>"/>
+                        <?
+                        }
+                        ?>
+                    </div>
+                    <h3 class="source-item-title"><?= data.nyt[i].abstract ?></h3>
+                    <p class="source-item-date"><?= moment(data.nyt[i].pub_date).calendar() ?></p>
+                    <div class="review-input">
+                        <input type="checkbox" name="evidence-source[<?= counter ?>]" value="<?= data.nyt[i].web_url ?>" id="evidence-source[<?= counter ?>]" />
+                        <label for="evidence-source[<?= counter ?>]">Hilfreiche Ressource?</label>
+                    </div>
+                    <a href="<?= data.nyt[i].web_url ?>" target="_blank">Öffnen</a>
+                </li>
+            <? } ?>
+        </ul>
+        <h3>Bewerte diese Behauptung</h3>
+        <ul class="evaluate-options-list">
+            <li class="evaluate-option">
+                <input name="rating" type="radio" value="true" id="rating_true"/>
+                <label for="rating_true"><?= __('review_true') ?></label>
+            </li>
+            <li class="evaluate-option">
+                <input name="rating" type="radio" value="false" id="rating_false" />
+                <label for="rating_false"><?= __('review_false') ?></label>
+            </li>
+            <li class="evaluate-option">
+                <input name="rating" type="radio" value="unevaluable" id="rating_na" />
+                <label for="rating_na"><?= __('review_unevaluable') ?></label>
+            </li>
+        </ul>
+        <h3>Geben Sie hier weitere Beweise an</h3>
+        <ul class="evaluate-source-list">
+            <li class="evaluate-source">
+                <input name="evidence-source[<?= counter ?>]" type="text" value="" />
+            </li>
+        </ul>
+        <button type="button" class="evaluate-source-button" onclick="addSource()"><?= __('add_source') ?></button>
+        <input type="submit" value="<?= __('submit') ?>" />
+    </form>
+</div>
+
+<script>
+const source_list = document.querySelector('.evaluate-source-list');
+function addSource(){
+    const api_source_count = document.querySelectorAll(".source-item").length;
+    let index = api_source_count + source_list.querySelectorAll('li').length;
+    let li = document.createElement('li');
+    let input = document.createElement('input');
+    li.classList.add('evaluate-source');
+    input.setAttribute('type', `text`);
+    input.setAttribute('name', `evidence-source[${index}]`);
+
+    li.appendChild(input);
+    source_list.appendChild(li);
+}
+</script>
+
+<!--
+<?- debug(data.api_query_text) ?>
+<?- debug(data.wiki) ?>
+<?- debug(data.zeit) ?>
+<?- debug(data.nyt) ?>
+-->

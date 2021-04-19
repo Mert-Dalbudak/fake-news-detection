@@ -1,0 +1,42 @@
+<div class="container">
+    <p class="query-claim"><?= data.user_query.text ?></p>
+    <h2>Relevante Quellen zur Überprüfung</h2>
+    <ul class="source-list">
+        <? for(let i = 0; i < data.zeit.length; i++){ ?>
+            <li class="source-item">
+                <div class="source-publisher">
+                    <img src="/image/zeit-online.svg" alt="Zeit Online" />
+                </div>
+                <h3 class="source-item-title"><?= data.zeit[i].title ?></h3>
+                <p class="source-item-date"><?= moment(data.zeit[i].release_date).calendar() ?></p>
+                <a href="<?= data.zeit[i].href ?>" target="_blank">Öffnen</a>
+            </li>
+        <?  } for(let i = 0; i < data.nyt.length; i++){ ?>
+            <li class="source-item">
+                <div class="source-publisher">
+                    <img src="/image/nyt.svg" alt="The New York Times"/>
+                </div>
+                <div class="source-item-thumbnail">
+                    <? 
+                    let thumbnail = data.nyt[i].multimedia.find(e => e.subtype == 'blog225');
+                    if(thumbnail != undefined) {
+                        thumbnail = thumbnail.url;
+                    ?>
+                    <img src="https://nyt.com/<?= thumbnail ?>" alt="<?= data.nyt[i].snippet ?>"/>
+                    <?
+                    }
+                    ?>
+                </div>
+                <h3 class="source-item-title"><?= data.nyt[i].abstract ?></h3>
+                <p class="source-item-date"><?= moment(data.nyt[i].pub_date).calendar() ?></p>
+                <a href="<?= data.nyt[i].web_url ?>" target="_blank">Öffnen</a>
+            </li>
+        <? } ?>
+    </ul>
+</div>
+
+<!--
+<?- debug(data.api_text) ?>
+<?- debug(data.zeit) ?>
+<?- debug(data.nyt) ?>
+-->

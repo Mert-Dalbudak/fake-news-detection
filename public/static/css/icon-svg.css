@@ -1,0 +1,81 @@
+.icon-globle:before {
+	width: 30px;
+	height: 30px;
+    background-image: url(../image/symbol/globe.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	content: "";
+	display: inline-block;
+}
+
+#locale-menu-button>button {
+	background-color: transparent !important;
+}
+
+.icon::before {
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	margin: 0 8px;
+	content: ' ';
+	display: inline-block;
+	vertical-align: middle;
+    text-align: center;
+    background-size: 100%;
+}
+
+.icon-home::before {
+	background-image: url(../image/symbol/home_white.svg);
+}
+
+.icon-dashboard::before {
+	background-image: url(../image/symbol/dashboard_white.svg);
+}
+
+.icon-projects::before {
+	background-image: url(../image/symbol/projects_white.svg);
+}
+
+.icon-demo-products::before {
+	background-image: url(../image/symbol/demogeraete_white.svg);
+}
+
+.icon-my-benefits::before {
+	background-image: url(../image/symbol/benefit_white.svg);
+}
+
+.icon-training-events::before {
+	background-image: url(../image/symbol/training_white.svg);
+}
+
+.icon-loyality-shop::before {
+	background-image: url(../image/symbol/verkaufshilfen_white.svg);
+}
+
+.icon-lmc::before {
+	background-image: url(../image/symbol/cloud_white.svg);
+}
+
+.icon-support::before {
+	background-image: url(../image/symbol/support_white.svg);
+}
+
+.icon-downloads::before {
+	background-image: url(../image/symbol/download_white.svg);
+}
+
+.icon-downloads::before {
+	background-image: url(../image/symbol/download_white.svg);
+}
+
+.icon-briefcase::before {
+    background-image: url(../image/symbol/briefcase.svg);
+}
+
+.icon-checker::before {
+    background-image: url(../image/symbol/checker.svg);
+}
+
+.icon-info::before {
+    background-image: url(../image/symbol/info.svg);
+}

@@ -1,0 +1,90 @@
+<div class="container">
+    <!-- Unrated User Queries (claim) -->
+    <div>
+        <h1>
+            <?= __('unrated_claim') ?>
+        </h1>
+        <ul class="claim-list">
+            <? for(let i = 0; i < data.claims.length; i++) { ?>
+                <li class="claim-item" data-id="<?= data.claims[i]._id ?>">
+                    <h3 class="claim-item-title"><?= data.claims[i].text ?></h3>
+                    <p class="claim-item-date">Übermittelt, <?= moment(data.claims[i].update_date).calendar() ?></p>
+                    <a href="/validate/review/<?= data.claims[i]._id ?>" target="_blank"><?= __('review') ?></a>
+                    <a href="javascript: confirm('<?= __('delete_claim_confirm', {'claim': data.claims[i].text}) ?>') ? deleteClaim('<?= data.claims[i]._id ?>') : null"><?= __('discard') ?></a>
+                </li>
+            <? } ?> 
+        </ul>
+        <? if(data.claims.length == 0){?>
+            <p>Keine Daten vorhande</p>
+        <? } ?>
+    </div>
+    </br>
+    <!-- Review own claim -->
+    <div>
+        <h2>
+            <?= __('rate_own_claim') ?>
+        </h2>
+        <div>
+            <form method="POST" action="/validate/self-review">
+                <?- form(form_security) ?>
+                <label for="roumor_text">Rumour / Claim</label>
+
+                <textarea name="rumour" id="roumor_text" style="width: 400px;max-width: 100%;min-height: 100px;display: block;margin: 10px 0;" placeholder="<?= __('type_rumours') ?>"></textarea>
+                <ul class="evaluate-options-list">
+                    <li class="evaluate-option">
+                        <input name="rating" type="radio" value="true" id="rating_true"/>
+                        <label for="rating_true"><?= __('review_true') ?></label>
+                    </li>
+                    <li class="evaluate-option">
+                        <input name="rating" type="radio" value="false" id="rating_false" />
+                        <label for="rating_false"><?= __('review_false') ?></label>
+                    </li>
+                    <li class="evaluate-option">
+                        <input name="rating" type="radio" value="unevaluable" id="rating_na" />
+                        <label for="rating_na"><?= __('review_unevaluable') ?></label>
+                    </li>
+                </ul>
+                <h3>Sources</h3>
+                <ul class="evaluate-source-list">
+                    <li class="evaluate-source">
+                        <input name="source[0]" type="text" value="" />
+                    </li>
+                </ul>
+                <button type="button" class="evaluate-source-button" onclick="addSource()"><?= __('add_source') ?></button>
+
+                <input type="submit" value="<?= __('submit') ?>" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const source_list = document.querySelector('.evaluate-source-list');
+    function addSource(){
+        let index = source_list.querySelectorAll('li').length;
+        let li = document.createElement('li');
+        let input = document.createElement('input');
+        li.classList.add('evaluate-source');
+        input.setAttribute('type', `text`);
+        input.setAttribute('name', `evidence-source[${index}]`);
+
+        li.appendChild(input);
+        source_list.appendChild(li);
+    }
+    function deleteClaim(e){
+        document.querySelector('.claim-list li[data-id="' + e + '"]').remove();
+        // Old compatibility code, no longer needed.
+        if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+            httpRequest = new XMLHttpRequest();
+        } else if (window.ActiveXObject) { // IE 6 and older
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        httpRequest.onreadystatechange = function(data){
+            console.log(data);
+        };
+        httpRequest.open('DELETE', `/validate/delete/${e}`);
+        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        httpRequest.send('_csrf=<?= form_security.csrf ?>');
+        // TODO REMOVE CLAIM
+    }
+</script>

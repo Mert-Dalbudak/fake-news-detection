@@ -1,0 +1,33 @@
+[
+    {
+        "title": "nav_home",
+        "id": "home",
+        "icon": "icon-home",
+        "href": "/"
+    },
+    {
+        "title": "nav_checker",
+        "id": "checker",
+        "icon": "icon-checker",
+        "href": "/checker"
+    },
+    {
+        "title": "nav_query_validate",
+        "id": "query_validation",
+        "icon": "icon-checker",
+        "href": "/validate",
+        "permission": ["admin", "editor"]
+    },
+    {
+        "title": "nav_career",
+        "id": "projects",
+        "icon": "icon-briefcase",
+        "href": "/career"
+    },
+    {
+        "title": "nav_about",
+        "id": "demo_products",
+        "icon": "icon-info",
+        "href": "/about"
+    }
+]

@@ -1,0 +1,28 @@
+<div class="container">
+    <? if(data.reviewed_queries.length > 0){?>
+        <h1>Hast du nach folgendem gesucht?</h1>
+    <? } ?>
+    <ul class="reviewed-queries-list">
+        <? for(let i = 0; i < data.reviewed_queries.length; i++){ ?>
+            <li class="claim-item">
+                <h3 class="reviewed-query-item-title"><?= data.reviewed_queries[i].text ?></h3>
+                <p class="reviewed-query-item-date"><?= moment(data.reviewed_queries[i].update_date).calendar() ?></p>
+                <p class="reviewed-query-item-valuation <?= data.reviewed_queries[i].status ?>"><?= __(`review_${data.reviewed_queries[i].status}`) ?></p>
+                <a href="/checker/query/<?= data.reviewed_queries[i]._id ?>">Details</a>
+            </li>
+        <? } ?> 
+    </ul>
+    <div>
+        <? if(data.reviewed_queries.length > 0) { ?>
+        <h2><?= __('not_found_ask_for_review') ?></h2>
+        <? } else { ?>
+        <h2><?= __('no_query_match_ask_for_review') ?></h2>
+        <? } ?>
+        </br>
+        <a href="/checker/no-match/<?= data.query_id ?>"><?= __('submit_for_review') ?></a>
+    </div>
+</div>
+
+<!--
+<?- debug(data) ?>
+-->

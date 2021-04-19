@@ -1,0 +1,12 @@
+<div class="container">
+    <h1>Benutzerdateneinstellungen</h1>
+    <form method="POST">
+        <?- form(form_security) ?>
+        <input type="text" name="first_name" placeholder="Vorname" value="<?= user.first_name ?>" />
+        <input type="text" name="surname" placeholder="Nachname"  value="<?= user.surname ?>" />
+        <input type="email" name="email" placeholder="Email-Adresse"  value="<?= user.email ?>" />
+        <input type="submit" value="<?= __('submit') ?>">
+    </form>
+
+    <p>Setze dein Password <a href="/users/change-password">hier</a> zurück</p>
+</div>

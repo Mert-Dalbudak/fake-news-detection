@@ -1,0 +1,35 @@
+<div class="container">
+    
+    <p class="query-claim"><?= data.user_query.text ?></p>
+    
+    <p class="reviewed-query-item-valuation <?= data.user_query.status ?>"><?= __(`review_${data.user_query.status}`) ?></p>
+
+    <h3 class="">Zuletzt überprüft, <?= moment(data.user_query.update_date).calendar() ?></h3>
+
+    <div>
+        <h3 class="">von: 
+            <?= data.user_query.editor.first_name ?>
+            <?= data.user_query.editor.surname ?>
+        </h3>
+    </div>
+
+    
+
+    <h2>Quellenangabe</h2>
+    <ul>
+        <? for(let i = 0; i < data.user_query.evidences.length; i++){ ?>
+        <li class="source-item">
+            <p class="">Hinzugefügt von:</br>
+                <strong><?= data.user_query.evidences[i].editor.first_name ?> <?= data.user_query.evidences[i].editor.surname ?></strong>
+            </p>
+            <h3 class="source-item-title"><?= data.user_query.evidences[i].source ?></h3>
+            <a href="<?= data.user_query.evidences[i].href ?>" target="_blank">Öffnen</a>
+        </li>
+        <? } ?>
+    </ul>
+</div>
+
+<!--
+<?- debug(data) ?>
+<?- debug(user) ?>
+-->

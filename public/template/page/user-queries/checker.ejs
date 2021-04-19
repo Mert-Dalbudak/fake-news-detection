@@ -1,0 +1,13 @@
+<div class="container">
+    <h1><?= __('fact_checker') ?></h1>
+    <p>
+        <?= __('what_rumours_did_you_hear') ?>
+    </p>
+    <form method="POST" action="/checker/query">
+        <?- form(form_security) ?>
+        <div style="margin: 10px auto; width: fit-content;max-width: 100%;">
+            <textarea name="value" style="width: 400px;max-width: 100%;min-height: 100px;display: block;margin: 10px auto;" placeholder="<?= __('type_rumours') ?>"></textarea>
+            <input type="submit" value="<?= __('submit') ?>">
+        </div>
+    </form>
+</div>

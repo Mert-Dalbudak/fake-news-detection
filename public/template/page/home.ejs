@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Kürzlich Überprüft</h1>
+
+    <ul class="reviewed-queries-list">
+        <? for(let i = 0; i < data.reviewed_user_queries.length; i++){ ?>
+            <li class="reviewed-query-item">
+                <h3 class="reviewed-query-item-title"><?= data.reviewed_user_queries[i].text ?></h3>
+                <p class="reviewed-query-item-date"><?= moment(data.reviewed_user_queries[i].update_date).calendar() ?></p>
+                <p class="reviewed-query-item-valuation <?= data.reviewed_user_queries[i].status ?>"><?= __(`review_${data.reviewed_user_queries[i].status}`) ?></p>
+                <a href="/checker/query/<?= data.reviewed_user_queries[i]._id ?>">Details</a>
+            </li>
+        <? } ?> 
+    </ul>
+    <? if(data.reviewed_user_queries.length == 0){?>
+        <p>Keine Daten vorhande</p>
+    <? } ?>
+    <!--<p>Nehmen Sie an der aktuellen Umfrage zur Qualitätsprüfung Teil: <a href="https://forms.gle/sx4AkEkajNJU9Hc76">https://forms.gle/sx4AkEkajNJU9Hc76</a></p>-->
+</div>
+
+<!--
+<?- debug(data) ?>
+<?- debug(user) ?>
+-->

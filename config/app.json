@@ -1,0 +1,111 @@
+{
+    "database": {
+        "default": {
+            "host": "localhost",
+            "port": 27017,
+            "authSource": "admin",
+            "username": "web",
+            "password": "fn-project123",
+            "name": "fn-project",
+            "type": "MongoDB"
+        }
+    },
+    "services": {
+        "Zeit": {
+            "hostname": "api.zeit.de",
+            "path": "",
+            "port": 80,
+            "secure": false,
+            "authorization": {
+                "type": "x-auth",
+                "auth-header": "X-Authorization",
+                "token": "31183da0194364625e06ac33565b18d846057d428c61357a096d"
+            },
+            "headers": {
+                "Accept": "*/*"
+            },
+            "queries": {},
+            "endpoints": {
+                "findContent": {
+                    "path": "/content",
+                    "method": "GET",
+                    "headers": {
+                        
+                    },
+                    "queries": {
+
+                    }
+                }
+            }
+        },
+        "NYT": {
+            "hostname": "api.nytimes.com",
+            "path": "/svc",
+            "port": 443,
+            "secure": true,
+            "authorization": {
+                "type": null
+            },
+            "headers": {},
+            "queries": {
+                "api-key": "ePMStfxncVBILIB6DG7rntqvrJ8UR7PR"
+            },
+            "endpoints": {
+                "article": {
+                    "path": "/search/v2/articlesearch.json",
+                    "method": "GET",
+                    "headers": {
+                        "Content-Type": "application/scim+json"
+                    },
+                    "queries": {
+
+                    }
+                }
+            }
+        },
+        "wikipedia": {
+            "hostname": "de.wikipedia.org",
+            "path": "/w",
+            "port": 443,
+            "secure": true,
+            "authorization": {
+                "type": null
+            },
+            "headers": {
+
+            },
+            "queries": {
+                "action": "query",
+                "list": "search",
+                "prop": "info",
+                "inprop": "url",
+                "format": "json"
+            },
+            "endpoints": {
+                "search": {
+                    "method": "GET",
+                    "path": "/api.php",
+                    "queries": {
+                        "srsearch": null
+                    },
+                    "headers":{
+    
+                    }
+                }
+            }
+        }
+    },
+    "emails": {
+        "default": {
+            "host": "localhost",
+            "port": 25,
+            "user": null,
+            "password": null,
+            "client": null
+        }
+    },
+    "languages": [
+        "root",
+        "de-de"
+    ]
+}
